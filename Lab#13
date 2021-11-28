@@ -1,0 +1,82 @@
+#1)1/sqrt(0.5*x+2)
+#2)pow(x,2)*math.log(x)
+#3)1/pow(x,2)+1.2
+from scipy import integrate
+from numpy import*
+def f(x):
+    return 1/sqrt(0.5*x+2)
+def f1(x):
+    return pow(x,2)*math.log(x)
+def f2(x):
+    return 1/pow(x,2)+1.2
+ 
+v,err=integrate.quad(f,0.4,1.2)
+v1,err=integrate.quad(f1,1.4,3)
+v2,err=integrate.quad(f2,0.4,1.2)
+print('--------------------------------------\nCheck the rectangle',v)
+print('--------------------------------------\nSimpson check',v1)
+print('--------------------------------------\nTrapeze check',v2)
+ 
+def prR(f,a,b,n):
+    i=1
+    sum=f(b)
+    h=(b-a)/n
+    while i<n:
+        b=b-h
+        sum=f(b)+sum
+        i=i+1
+    return sum*h 
+print('--------------------------------------\nMethod Right Rectangle:', prR(f,0.4,1.2,8))
+ 
+def prL(f,a,b,n):
+    i=1
+    h=(b-a)/n
+    sum=f(a)
+    while i<n:
+        a=a+h
+        sum=f(a)+sum
+        i=i+1
+    return sum*h 
+print('--------------------------------------\nMethod Left Rectangle:', prL(f,0.4,1.2,8))
+ 
+def prM(f,a,b,n):
+    i=1
+    h=(b-a)/n
+    sum=f(a+h/2)
+    while i<=n:
+        a=a+h+h/2
+        sum=f(a)+sum
+        i=i+1
+    return sum*h 
+print('--------------------------------------\nMethod Middle Rectangle', prM(f,0.4,1.2,8))
+ 
+def prS(f1,a,b,n):
+    i=0
+    h=(b - a)/n
+    sum=f1(a)+f1(b)
+    while i<n:
+        a=a+h 
+        i=i+1
+        if i==n:
+            return sum*(h/3);  
+        sum = f1(a)*4+sum 
+        a1=a+h 
+        i=i+1
+        if i==n:
+            return sum*(h / 3);  
+        sum=sum+f1(a1)*2
+    return sum*(h/3)
+print('--------------------------------------\nMethod Simpson', prS(f1,1.4,3,2))
+ 
+def prT(f2,a,b,n):
+    i=0
+    h=(b-a)/n
+    sum=f2(a)/2+f2(b)/2
+    while i<n:
+        a=a+h
+        i=i+1
+        if i==n:
+            return sum*h
+        sum=sum+f2(a)
+    return sum*h
+print('--------------------------------------\nMetod Trapeze', prT(f2, 0.4, 1.2, 20), '\n--------------------------------------')
