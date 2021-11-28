@@ -1,0 +1,57 @@
+#f(x)=5cos(x)
+ 
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+def f(x):
+    return 5*math.cos(x)
+  
+i=0
+yavg=0 
+xavg=0
+x2avg=0
+xyavg=0
+ 
+x=np.array([0.1,0.15,0.2,0.3,0.4,0.5,0.6,0.7,0.47,0.5])
+y=np.array(range(len(x)), float)
+x2=np.array(range(len(x)), float)
+xy=np.array(range(len(x)), float)
+fx=np.array(range(len(x)), float)
+ 
+while i<=len(x)-1:
+  xavg+=x[i]
+  y[i]=f(x[i])
+  yavg+=y[i]
+  x2[i]=pow(x[i],2)
+  x2avg+=x2[i]
+  xy[i]=x[i]*y[i]
+  xyavg+=xy[i]
+  i=i+1
+ 
+yavg/=len(x)
+xavg/=len(x)
+x2avg/=len(x)
+xyavg/=len(x)
+ 
+print(' x(n): ',x, '\n        avg X =',xavg)
+print(' y(n): ',y, '\n        avg Y =',yavg)
+print(' x^2(n): ',x2, '\n          avg X^2 =',x2avg)
+print(' xy(n): ',xy, '\n         avg XY =',xyavg)
+ 
+a1=(xyavg-xavg*yavg) / (x2avg-pow(xavg,2))
+a0=yavg-a1*xavg
+print(' (a1)=',a1, '\n (a0)=',a0)
+i=0
+ 
+while i<=len(x)-1:
+  fx[i]=a0+a1*x[i]
+  i=i+1
+ 
+print(' fx(n):\n', fx)
+ 
+plt.title("LB_12 Hokage #8 Vadim")
+plt.plot(x,fx, label='f(x)=a0+a1x')
+plt.plot(x,y, label='f(x)=5cos(x)')
+plt.grid()
+plt.legend()
+plt.show()
