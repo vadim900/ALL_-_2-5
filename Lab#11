@@ -1,0 +1,20 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from math import cos
+from math import sin
+ 
+def f(x):
+  result=5*sin(x)
+  return result
+x= np.linspace(0,10.0,100)
+y= 5*np.cos(x)
+y2= -5*np.sin(x)
+y3= f(5)
+ 
+plt.title('Taylor Expansion')
+ 
+plt.plot(x,y, label='5*cos(x)')
+plt.plot(x,y2, label='x=0')
+ 
+plt.legend()
+plt.show()
