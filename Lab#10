@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+from scipy.interpolate import UnivariateSpline 
+from numpy import *
+
+x = [0.3,0.8,1.4,2.1,2.9] 
+y = [5.28,6.83,4.35,3.26,2.35]
+
+plt.scatter(x,y,label="Значення вказаних точок", color='b')
+plt.grid(True)
+plt.xlabel("x", color='y')
+plt.ylabel('y', color='y')
+plt.title("Інтерполяція сплайнами", color='y')
+
+spl = UnivariateSpline(x, y) 
+xs = linspace(-5, 10, 1000) 
+
+plt.plot (x,y, 'bo', xs, spl(xs), 'r', lw = 2) 
+plt.legend()
+plt.show()
